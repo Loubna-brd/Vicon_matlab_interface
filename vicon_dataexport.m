@@ -1,5 +1,6 @@
 %% Code copied from Kirsty McDonald's youtube video series
 % https://www.youtube.com/channel/UCIqZ46GRzFbSYNzMVQ5HD-g
+% Adaped by Loubna Baroudi
 vicon = ViconNexus
 %%
 % vicon.DisplayCommandList() %These don't work..
