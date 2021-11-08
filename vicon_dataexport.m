@@ -1,20 +1,31 @@
 %% Code copied from Kirsty McDonald's youtube video series
 % https://www.youtube.com/channel/UCIqZ46GRzFbSYNzMVQ5HD-g
 vicon = ViconNexus
-vicon.DisplayCommandList()
-vicon.DisplayCommandHelp('CommandGoesHere')
+%%
+% vicon.DisplayCommandList() %These don't work..
+% vicon.DisplayCommandHelp('CommandGoesHere')
 %% ------------------ Marker Trajectories ----------------
 %%
 % Import the subject name
 SubjectName = vicon.GetSubjectNames;
+%% Import Subject Parameters
+Parameters = {'Bodymass','Height','LeftLegLength','LeftKneeWidth','LeftAnkleWidth',...
+    'RightLegLength','RightKneeWidth','RightAnkleWidth'};
+for i = 1:length(Parameters)
+    [SubjectParam.(Parameters{i}), ModelData.Exists.(Parameters{i})] = vicon.GetSubjectParam(SubjectName{1},Parameters{i});
+end 
 %% Import Marker Names for this subject
-vicon.GetMarkerNames('Loubna');
+MarkerNames = vicon.GetMarkerNames(SubjectName{1});
 %%
 % Import RTH1 and RTH3 marker trajectories
 % Input = Subject name, marker name
 % Output = Trajectory data X, Y, Z & E
 [RHEE(:,1),RHEE(:,2),RHEE(:,3),RHEE(:,4)] = vicon.GetTrajectory(SubjectName{1},'RHEE');
 [LHEE(:,1),LHEE(:,2),LHEE(:,3),LHEE(:,4)] = vicon.GetTrajectory(SubjectName{1},'LHEE');
+%%
+[RTOE(:,1),RTOE(:,2),RTOE(:,3),RTOE(:,4)] = vicon.GetTrajectory(SubjectName{1},'RTOE');
+[LTOE(:,1),LTOE(:,2),LTOE(:,3),LTOE(:,4)] = vicon.GetTrajectory(SubjectName{1},'LTOE');
+
 %% PLOT
 figure()
 plot(RHEE)
@@ -41,9 +52,9 @@ Events.RightFS = vicon.GetEvents(SubjectName{1}, 'Right', 'Foot Strike');
 Events.RightFO = vicon.GetEvents(SubjectName{1}, 'Right', 'Foot Off');
 %% Plot gait events with trajectory
 figure()
-plot(RHEE)
+plot(RTOE)
 hold on
-plot(Events.RightFO,RHEE(Events.RightFO,2),'.')
+plot(Events.RightFS,RTOE(Events.RightFS,2),'.')
 % Crop data to stance phase only
 % for i = 1:length(ModelOutput)
 %     for j = 1:length(Events.RightFO)
