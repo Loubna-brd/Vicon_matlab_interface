@@ -17,7 +17,7 @@ end
 %% Import Marker Names for this subject
 MarkerNames = vicon.GetMarkerNames(SubjectName{1});
 %%
-% Import RTH1 and RTH3 marker trajectories
+% Import marker trajectories for heel and toe markers from right and left foot
 % Input = Subject name, marker name
 % Output = Trajectory data X, Y, Z & E
 [RHEE(:,1),RHEE(:,2),RHEE(:,3),RHEE(:,4)] = vicon.GetTrajectory(SubjectName{1},'RHEE');
@@ -40,14 +40,14 @@ plot(RHEE)
 %% ---------------- Import model outputs -------------------
 %%
 
-% Import model data for right ankle
+% Import model data for right ankle, you can put any model output you are interested in
 ModelOutput = {'RAnkleAngles'};
 
 for i = 1:length(ModelOutput)
     [ModelData.Raw.(ModelOutput{i}), ModelData.Exists.(ModelOutput{i})] = vicon.GetModelOutput(SubjectName{1},ModelOutput{i});
 end    
 
-% Import event frames
+% Import frames with Foot off and Foot strike events (After data observation, I am unclear as to whether these can be trusted)
 Events.RightFS = vicon.GetEvents(SubjectName{1}, 'Right', 'Foot Strike');
 Events.RightFO = vicon.GetEvents(SubjectName{1}, 'Right', 'Foot Off');
 %% Plot gait events with trajectory
