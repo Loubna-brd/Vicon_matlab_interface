@@ -48,7 +48,8 @@ for i = 1:length(ModelOutput)
     [ModelData.Raw.(ModelOutput{i}), ModelData.Exists.(ModelOutput{i})] = vicon.GetModelOutput(SubjectName{1},ModelOutput{i});
 end    
 
-% Import frames with Foot off and Foot strike events (After data observation, I am unclear as to whether these can be trusted)
+% Import frames with Foot off and Foot strike events 
+# (After data observation, I am unclear as to whether these can be trusted UPDATE: Left and right were inverted between markers and force plates for me)
 Events.RightFS = vicon.GetEvents(SubjectName{1}, 'Right', 'Foot Strike');
 Events.RightFO = vicon.GetEvents(SubjectName{1}, 'Right', 'Foot Off');
 %% Plot gait events with trajectory
