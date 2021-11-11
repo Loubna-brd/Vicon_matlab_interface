@@ -26,6 +26,9 @@ MarkerNames = vicon.GetMarkerNames(SubjectName{1});
 %%
 [RTOE(:,1),RTOE(:,2),RTOE(:,3),RTOE(:,4)] = vicon.GetTrajectory(SubjectName{1},'RTOE');
 [LTOE(:,1),LTOE(:,2),LTOE(:,3),LTOE(:,4)] = vicon.GetTrajectory(SubjectName{1},'LTOE');
+%%
+[RANK(:,1),RANK(:,2),RANK(:,3),RANK(:,4)] = vicon.GetTrajectory(SubjectName{1},'RANK');
+[LANK(:,1),LANK(:,2),LANK(:,3),LANK(:,4)] = vicon.GetTrajectory(SubjectName{1},'LANK');
 
 %% PLOT
 figure()
@@ -52,6 +55,8 @@ end
 # (After data observation, I am unclear as to whether these can be trusted)
 Events.RightFS = vicon.GetEvents(SubjectName{1}, 'Right', 'Foot Strike');
 Events.RightFO = vicon.GetEvents(SubjectName{1}, 'Right', 'Foot Off');
+Events.LeftFS = vicon.GetEvents(SubjectName{1}, 'Left', 'Foot Strike');
+Events.LeftFO = vicon.GetEvents(SubjectName{1}, 'Left', 'Foot Off');
 %% Plot gait events with trajectory
 figure()
 plot(RTOE)
